@@ -4,12 +4,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 
-const SplashScreen = () => (
+const SplashScreen = ({ isLoading }) => (
 
   <SafeAreaView style={styles.container}>
     <Text style={styles.title}>CoffeeTime</Text>
     <Icon name="coffeescript" size={50} color="black" style={styles.icon} />
-    <ActivityIndicator size="large" animating color="black" />
+    <ActivityIndicator size="large" animating={isLoading} color="black" />
   </SafeAreaView>
 
 );
