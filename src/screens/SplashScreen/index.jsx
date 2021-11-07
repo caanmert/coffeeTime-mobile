@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import {
-  Text, SafeAreaView, StyleSheet, ActivityIndicator,
+  Text, SafeAreaView, StyleSheet, ActivityIndicator, AppState,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
+import locationPermission from '../../permissions/locationPermission';
 
-const SplashScreen = ({ isLoading }) => (
+const SplashScreen = ({ isGranted }) => {
+  const appState = useRef(AppState.currentState);
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', async (nextAppState) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        const res = await locationPermission();
+        if (res) { isGranted(true); }
+      }
+      appState.current = nextAppState;
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
-  <SafeAreaView style={styles.container}>
-    <Text style={styles.title}>CoffeeTime</Text>
-    <Icon name="coffeescript" size={50} color="black" style={styles.icon} />
-    <ActivityIndicator size="large" animating={isLoading} color="black" />
-  </SafeAreaView>
+  return (
 
-);
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>CoffeeTime</Text>
+      <Icon name="coffeescript" size={50} color="black" style={styles.icon} />
+      <ActivityIndicator size="large" animating color="black" />
+    </SafeAreaView>
+
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -31,5 +49,12 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
 });
+
+SplashScreen.defaultProps = {
+  isGranted: false,
+};
+SplashScreen.propTypes = {
+  isGranted: PropTypes.func,
+};
 
 export default SplashScreen;
