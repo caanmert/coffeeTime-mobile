@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 });
 
 SplashScreen.defaultProps = {
-  isGranted: false,
+  isGranted: () => {},
 };
 SplashScreen.propTypes = {
   isGranted: PropTypes.func,

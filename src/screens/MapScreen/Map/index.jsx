@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
+import MarkerList from '../MarkerList';
 
-const Map = ({ initialRegion }) => {
+const Map = ({ initialRegion, machineLocations }) => {
   useEffect(() => () => {
     console.log(initialRegion);
   }, []);
+
+  const onMarkerPress = () => {
+    console.log('onMarkerPress');
+  };
+
   return (
 
     <MapView
@@ -16,7 +22,11 @@ const Map = ({ initialRegion }) => {
       showsUserLocation
       zoomEnabled
       loadingEnabled
-    />
+      onMapReady-={() => console.log('readt')}
+    >
+      <MarkerList machineLocations={machineLocations} onPress={onMarkerPress} />
+    </MapView>
+
   );
 };
 const styles = StyleSheet.create({
