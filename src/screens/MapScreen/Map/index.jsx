@@ -1,22 +1,45 @@
-import React, {
-  useEffect, useState, useRef, createRef,
-} from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import Geolocation from 'react-native-geolocation-service';
 import MarkerList from '../MarkerList';
 import MarkerModal from '../MarkerModal';
 
-const Map = ({ initialRegion, machineLocations }) => {
-  // const bottomSheetModalRef = useRef < BottomSheetModal > (null);
-  const bottomSheetModalRef = createRef(BottomSheetModal);
-  useEffect(() => () => {
-    console.log(initialRegion);
-  }, []);
+/* const initialRegion = {
+  latitude: 43.21059001671995,
+  longitude: 27.922115234775568,
+  latitudeDelta: 0.002,
+  longitudeDelta: 0.0035,
+}; */
 
-  const onMarkerPress = () => {
+const Map = ({ machines, initialRegion }) => {
+  // const [machines, setMachines] = useState();
+
+  const bottomSheetRef = createRef(BottomSheetModal);
+
+  const [selectedMachine, setSelectedMachine] = useState(undefined);
+  // const [ismapReady, setisMapReady] = useState(false);
+  useEffect(() => () => {
+    console.log(`MAP${initialRegion}`);
+    // console.log(`MAP${region}`);
+  }, []);
+  /*
+  useEffect(() => () => {
+    Geolocation.watchPosition((position) => {
+    });
+  }, []); */
+
+  const onMarkerPress = (machine) => {
+    console.log(machine);
     console.log('onMarkerPress');
-    bottomSheetModalRef.current?.present();
+    setSelectedMachine(machine);
+    bottomSheetRef.current.present();
+  };
+
+  const onMapPress = () => {
+    console.log('onMapPress');
+    bottomSheetRef.current.close();
   };
 
   return (
@@ -29,19 +52,26 @@ const Map = ({ initialRegion, machineLocations }) => {
         showsUserLocation
         zoomEnabled
         loadingEnabled
-        onMapReady-={() => console.log('readt')}
+        mapType="standard"
+        loadingBackgroundColor="wheat"
+        onPress={() => onMapPress()}
+        onMapReady={(e) => console.log(e)}
+       // region={region}
+
       >
-        <MarkerList machineLocations={machineLocations} onPress={() => onMarkerPress()} />
+        <MarkerList machines={machines} onPress={(machine) => onMarkerPress(machine)} />
 
       </MapView>
-      <MarkerModal modalRef={bottomSheetModalRef} />
+
+      <MarkerModal modalRef={bottomSheetRef} machine={selectedMachine} />
     </>
+
   );
 };
 const styles = StyleSheet.create({
 
   map: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
   },
 });
 

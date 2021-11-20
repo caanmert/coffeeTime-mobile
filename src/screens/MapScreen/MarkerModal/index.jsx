@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import {
   View, Text, StyleSheet, Button,
 } from 'react-native';
-import {
+import BottomSheet, {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
@@ -47,47 +47,63 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
   );
 }; */
 
-const MarkerModal = ({ modalRef }) => {
+const MarkerModal = ({ modalRef, machine }) => {
   // const bottomSheetRef = useRef < BottomSheet > (null);
 
   // variables
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const snapPoints = useMemo(() => ['30%', '60%'], []);
+  // const snapPoints = useMemo(() => ['80%'], []);
+
+  // const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index) => {
     console.log('handleSheetChanges', index);
   }, []);
   return (
-    <GestureHandlerRootView>
-      <BottomSheetModalProvider>
-        <View style={styles.container}>
-          <BottomSheetModal
-        // ref={bottomSheetRef}
-            ref={modalRef}
-            index={1}
-            snapPoints={snapPoints}
-            onChange={handleSheetChanges}
 
-          >
-            <View style={styles.contentContainer}>
-              <Text>Awesome 🎉</Text>
-            </View>
-          </BottomSheetModal>
+    <BottomSheetModalProvider>
+
+      <BottomSheetModal
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+        enableDismissOnClose
+        //  enablePanDownToClose
+        initialSnap={0}
+        // ref={bottomSheetRef}
+        ref={modalRef}
+
+      >
+        <View style={styles.contentContainer}>
+          <Text>
+            {machine?._id}
+            {' '}
+            🎉
+          </Text>
         </View>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+      </BottomSheetModal>
+
+    </BottomSheetModalProvider>
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 34,
-    backgroundColor: 'transparent',
+    padding: 40,
+    backgroundColor: 'gray ',
+    justifyContent: 'center',
+
   },
   contentContainer: {
     flex: 1,
+    padding: 30,
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: 'pink',
+    /*  alignSelf: 'stretch', */
+
   },
 });
 
