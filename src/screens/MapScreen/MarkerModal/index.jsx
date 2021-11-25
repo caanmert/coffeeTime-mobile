@@ -1,62 +1,10 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import {
-  View, Text, StyleSheet, Button,
-} from 'react-native';
-import BottomSheet, {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-/* const MarkerModal = () => {
-  const sheetRef = React.useRef(null);
-
-  const renderContent = () => (
-    <View
-      style={{
-        backgroundColor: 'white',
-        padding: 16,
-        height: 450,
-      }}
-    >
-      <Text>Swipe down to close</Text>
-    </View>
-  );
-  return (
-    <>
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'papayawhip',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Button
-          title="Open Bottom Sheet"
-          onPress={() => sheetRef.current.snapTo()}
-        />
-      </View>
-      <BottomSheet
-        enablePanDownToClose
-        ref={sheetRef}
-        snapPoints={[450, 300]}
-        borderRadius={10}
-        renderContent={renderContent}
-      />
-    </>
-  );
-}; */
+import React, { useCallback, useMemo } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const MarkerModal = ({ modalRef, machine }) => {
-  // const bottomSheetRef = useRef < BottomSheet > (null);
+  const snapPoints = useMemo(() => ['10%', '30%', '60%'], []);
 
-  // variables
-  const snapPoints = useMemo(() => ['30%', '60%'], []);
-  // const snapPoints = useMemo(() => ['80%'], []);
-
-  // const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
-
-  // callbacks
   const handleSheetChanges = useCallback((index) => {
     console.log('handleSheetChanges', index);
   }, []);
@@ -91,16 +39,14 @@ const MarkerModal = ({ modalRef, machine }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
     backgroundColor: 'gray ',
     justifyContent: 'center',
 
   },
   contentContainer: {
     flex: 1,
-    padding: 30,
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     backgroundColor: 'pink',
     /*  alignSelf: 'stretch', */
 

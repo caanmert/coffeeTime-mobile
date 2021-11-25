@@ -24,7 +24,7 @@ const SplashScreen = ({ isGranted }) => {
   return (
 
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>CoffeeTime</Text>
+      <Text style={styles.title}>Coffee Time</Text>
       <Icon name="coffeescript" size={50} color="black" style={styles.icon} />
       <ActivityIndicator size="large" animating color="black" />
     </SafeAreaView>
@@ -35,7 +35,7 @@ const SplashScreen = ({ isGranted }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'wheat',
+    backgroundColor: '#e9dcbe',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '600',
     color: 'black',
-    marginBottom: 10,
+    marginBottom: 30,
   },
   icon: {
     marginBottom: 50,

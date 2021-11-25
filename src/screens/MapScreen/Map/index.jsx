@@ -1,45 +1,22 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { useEffect, useState, createRef } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import Geolocation from 'react-native-geolocation-service';
 import MarkerList from '../MarkerList';
 import MarkerModal from '../MarkerModal';
 
-/* const initialRegion = {
-  latitude: 43.21059001671995,
-  longitude: 27.922115234775568,
-  latitudeDelta: 0.002,
-  longitudeDelta: 0.0035,
-}; */
-
 const Map = ({ machines, initialRegion }) => {
-  // const [machines, setMachines] = useState();
-
-  const bottomSheetRef = createRef(BottomSheetModal);
-
-  const [selectedMachine, setSelectedMachine] = useState(undefined);
-  // const [ismapReady, setisMapReady] = useState(false);
-  useEffect(() => () => {
-    console.log(`MAP${initialRegion}`);
-    // console.log(`MAP${region}`);
-  }, []);
-  /*
-  useEffect(() => () => {
-    Geolocation.watchPosition((position) => {
-    });
-  }, []); */
+  // const bottomSheetRef = createRef(BottomSheetModal);
+  // const [selectedMachine, setSelectedMachine] = useState(undefined);
 
   const onMarkerPress = (machine) => {
-    console.log(machine);
-    console.log('onMarkerPress');
-    setSelectedMachine(machine);
-    bottomSheetRef.current.present();
+    // setSelectedMachine(machine);
+    // bottomSheetRef.current.present();
   };
-
   const onMapPress = () => {
-    console.log('onMapPress');
-    bottomSheetRef.current.close();
+    // bottomSheetRef.current.close();
   };
 
   return (
@@ -53,9 +30,11 @@ const Map = ({ machines, initialRegion }) => {
         zoomEnabled
         loadingEnabled
         mapType="standard"
-        loadingBackgroundColor="wheat"
-        onPress={() => onMapPress()}
-        onMapReady={(e) => console.log(e)}
+        loadingBackgroundColor="#e9dcbe"
+        loadingIndicatorColor="black"
+       // onPress={() => onMapPress()}
+       // onMapReady={(e) => console.log(e)}
+        moveOnMarkerPress={false}
        // region={region}
 
       >
@@ -63,16 +42,34 @@ const Map = ({ machines, initialRegion }) => {
 
       </MapView>
 
-      <MarkerModal modalRef={bottomSheetRef} machine={selectedMachine} />
+      {/*  <MarkerModal modalRef={bottomSheetRef} machine={selectedMachine} /> */}
     </>
 
   );
 };
 const styles = StyleSheet.create({
-
   map: {
     ...StyleSheet.absoluteFillObject,
   },
 });
+
+Map.defaultProps = {
+  machines: [],
+  initialRegion: {
+    latitude: 43.21059001671995,
+    longitude: 27.922115234775568,
+    latitudeDelta: 0.002,
+    longitudeDelta: 0.0035,
+  },
+};
+Map.propTypes = {
+  machines: PropTypes.arrayOf(PropTypes.object),
+  initialRegion: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    latitudeDelta: PropTypes.number.isRequired,
+    longitudeDelta: PropTypes.number.isRequired,
+  }),
+};
 
 export default Map;

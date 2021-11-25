@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Logo from '../../components/Logo';
@@ -13,38 +13,32 @@ const MapScreen = () => {
   const [message, setMessage] = useState('message');
 
   useEffect(() => {
-    console.log('useEffect Map Screen location');
     setMessage('Getting your location');
     Geolocation.getCurrentPosition(
       (position) => {
         const { longitude, latitude } = position.coords;
-        console.log(longitude, latitude);
         setuserLocation({
           latitude,
           longitude,
           latitudeDelta: 0.002,
           longitudeDelta: 0.0035,
         });
-        // setisLoading(false);
       },
+
       (error) => {
         alert(error.message);
         setisLoading(false);
-
-        console.log(error.code, error.message);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
-
     return () => { };
   }, []);
 
   useEffect(() => {
-    console.log('useEffect Map Screen machinefetch');
     setMessage('Getting machines around you');
+
     // console.log(userLocation);
     fetchMachinesByUserLocation(userLocation.longitude, userLocation.latitude).then((res) => {
-      console.log(res.data);
       if (res.data.success) {
         setMachines(res.data.machines);
         setTimeout(() => {
@@ -52,14 +46,13 @@ const MapScreen = () => {
         }, 1000);
       }
     }).catch((error) => {
+      alert(error.message);
       setisLoading(false);
-      console.log(error.message);
     });
   }, [userLocation]);
 
   return (
     <GestureHandlerRootView style={styles.container}>
-
       { isLoading ? <Logo message={message} spinner={isLoading} />
         : (
           <Map
@@ -68,13 +61,11 @@ const MapScreen = () => {
           />
         )}
     </GestureHandlerRootView>
-
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
   },
 });
 
