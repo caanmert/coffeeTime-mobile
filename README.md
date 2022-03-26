@@ -18,6 +18,12 @@ It uses longitude and latitude data and Google Maps API to get user's location.
 * Currently not in the store, due to developer account issues.
 
 
+## Future Plans
+* Reduce and optimize the sdk size
+* Add rating functionality, so that users can rate and comment on machines.
+   
+
+
 ## Version History
 * 0.1
     * Initial Release
