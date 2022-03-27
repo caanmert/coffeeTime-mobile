@@ -19,8 +19,10 @@ It uses longitude and latitude data and Google Maps API to get user's location.
 
 
 ## Future Plans
-* Reduce and optimize the sdk size
+* Reduce and optimize the app size.
 * Add rating functionality, so that users can rate and comment on machines.
+* Report functionality, if the coffee machine removed or moved from its current location, user can send a report.
+
    
 
 
