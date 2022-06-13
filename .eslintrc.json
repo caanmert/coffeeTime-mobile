@@ -18,6 +18,7 @@
         "react"
     ],
     "rules": {
-        "no-use-before-define": ["error", { "functions": true, "classes": true, "variables": false }] // disable the rule for variables, but enable it for functions and classes
+        "no-use-before-define": ["error", { "functions": true, "classes": true, "variables": false }], // disable the rule for variables, but enable it for functions and classes
+      "linebreak-style":0
     }
 }
