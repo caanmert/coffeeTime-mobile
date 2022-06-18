@@ -8,14 +8,7 @@ import locationPermission from '../permissions/locationPermission';
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => (
-
-  <Stack.Navigator screenOptions={{
-    headerShown: false,
-    // gestureEnabled: true,
-    // cardOverlayEnabled: true,
-
-  }}
-  >
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="MapScreen" component={MapScreen} />
   </Stack.Navigator>
 );
@@ -36,7 +29,8 @@ export default () => {
 
     <NavigationContainer>
 
-      {isPermissionGranted ? <StackNavigation />
+      {isPermissionGranted
+        ? <StackNavigation />
         : <SplashScreen isGranted={(bool) => setisPermissionGranted(bool)} />}
 
     </NavigationContainer>

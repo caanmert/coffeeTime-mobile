@@ -36,8 +36,6 @@ const MapScreen = () => {
 
   useEffect(() => {
     setMessage('Getting machines around you');
-
-    // console.log(userLocation);
     fetchMachinesByUserLocation(userLocation.longitude, userLocation.latitude).then((res) => {
       if (res.data.success) {
         setMachines(res.data.machines);
@@ -53,7 +51,8 @@ const MapScreen = () => {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      { isLoading ? <Logo message={message} spinner={isLoading} />
+      { isLoading
+        ? <Logo message={message} spinner={isLoading} />
         : (
           <Map
             initialRegion={userLocation}

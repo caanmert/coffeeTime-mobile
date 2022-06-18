@@ -16,9 +16,7 @@ const MarkerModal = ({ modalRef, machine }) => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         enableDismissOnClose
-        //  enablePanDownToClose
         initialSnap={0}
-        // ref={bottomSheetRef}
         ref={modalRef}
 
       >

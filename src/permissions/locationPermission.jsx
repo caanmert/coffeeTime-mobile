@@ -1,9 +1,8 @@
-/* eslint-disable no-const-assign */
 import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import LocationPermissionAlert from '../components/LocationPermissionAlert';
 
-async function checkPermission(result) {
+function checkPermission(result) {
   switch (result) {
     case 'granted':
       return true;
